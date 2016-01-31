@@ -2,9 +2,9 @@ Game.Level1 = function (game) {};
 
 Game.Level1.prototype = {
 	preload: function () {
-
+		this.floor = 74;
 		this.x = Game._WIDTH / 2;
-		this.y = Game._HEIGHT;
+		this.y = Game._HEIGHT / 2;
 
 		this.gravity = 200;
 		this.speedX = 3;
@@ -12,9 +12,9 @@ Game.Level1.prototype = {
 	},
 	create: function () {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
 		this.map = this.game.add.tilemap('mapa');
 		this.map.addTilesetImage('tiles', 'tileSet');
+		this.map.setCollision(this.floor);
 		this.layer = this.map.createLayer('lvl1Layer');
 		this.layer.resizeWorld();
 
@@ -27,6 +27,7 @@ Game.Level1.prototype = {
 
 	},
 	update: function () {
+		this.game.physics.arcade.collide(this.player, this.layer);
 		if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
 			this.player.x += this.speedX;
 		if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
