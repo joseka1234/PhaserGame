@@ -2,15 +2,21 @@ Game.Level1 = function (game) {};
 
 Game.Level1.prototype = {
 	preload: function () {
+
 		this.x = Game._WIDTH / 2;
-		this.y = Game._HEIGHT / 2;
+		this.y = Game._HEIGHT;
 
 		this.gravity = 200;
 		this.speedX = 3;
-		this.speedY = 5;
+		this.speedY = 4;
 	},
 	create: function () {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+		this.map = this.game.add.tilemap('mapa');
+		this.map.addTilesetImage('tiles', 'tileSet');
+		this.layer = this.map.createLayer('lvl1Layer');
+		this.layer.resizeWorld();
 
 		this.player = this.add.sprite(this.x, this.y,'front');
 		this.player.anchor.set(0,1);
