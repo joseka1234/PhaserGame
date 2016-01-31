@@ -4,19 +4,28 @@ Game.Level1.prototype = {
 	preload: function () {
 		this.x = Game._WIDTH / 2;
 		this.y = Game._HEIGHT / 2;
-		
+
+		this.gravity = 200;
+		this.speedX = 3;
+		this.speedY = 5;
 	},
 	create: function () {
-		this.playerFront = this.add.sprite(this.x, this.y,'front');
-		this.playerFront.anchor.set(0,1);
-		this.playerFront.visible = false;
+		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		this.player = this.add.sprite(this.x, this.y, 'walk');
+		this.player = this.add.sprite(this.x, this.y,'front');
 		this.player.anchor.set(0,1);
-		this.player.animations.add('walk');
-		this.player.animations.play('walk', 15, true);
+
+		this.game.physics.arcade.enable(this.player);
+		this.game.physics.arcade.gravity.y = this.gravity;
+		this.player.body.collideWorldBounds = true;
+
 	},
 	update: function () {
-		if()
+		if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+			this.player.x += this.speedX;
+		if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+			this.player.x -= this.speedX;
+		if(this.game.input.keyboard.isDown(Phaser.Keyboard.UP))
+			this.player.y -= this.speedY;
 	}
 };

@@ -12,7 +12,7 @@ Game.Boot.prototype = {
 	},
 
 	create: function () {
-		this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+		//this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.game.pageAlignHorizontally = true;
 		this.game.pageAlignVertically = true;
 		this.game.state.start('Preloader');
