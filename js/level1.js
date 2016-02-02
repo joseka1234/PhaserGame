@@ -8,14 +8,16 @@ Game.Level1.prototype = {
 		this.x = Game._WIDTH / 2;
 		this.y = Game._HEIGHT / 2;
 
-		this.gravity = 200;
-		this.speedX = 3;
+		this.gravity = 1000;
+		this.speedX = 200;
 		this.speedY = 4;
+		this.drag = 200;
 	},
 	create: function () {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.map = this.game.add.tilemap('mapa');
 		this.map.addTilesetImage('tiles', 'tileSet');
+
 		// Map collisions
 		this.map.setCollision(this.floor);
 		this.map.setCollision(this.platform);
@@ -26,9 +28,11 @@ Game.Level1.prototype = {
 		this.player = this.add.sprite(this.x, this.y,'front');
 		this.player.anchor.set(0,1);
 
+		// Physics
 		this.game.physics.arcade.enable(this.player);
 		this.game.physics.arcade.gravity.y = this.gravity;
 		this.player.body.collideWorldBounds = true;
+		this.player.body.drag.setTo(this.drag, 0);
 
 		this.game.camera.follow(this.player);
 
@@ -36,10 +40,10 @@ Game.Level1.prototype = {
 	update: function () {
 		this.game.physics.arcade.collide(this.player, this.layer);
 		if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-			this.player.x += this.speedX;
+			this.player.body.velocity.x = this.speedX;
 		if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-			this.player.x -= this.speedX;
+			this.player.body.velocity.x = -this.speedX;
 		if(this.game.input.keyboard.isDown(Phaser.Keyboard.UP))
-			this.player.y -= this.speedY;
+			this.player.body.velocity.y = 
 	}
 };
